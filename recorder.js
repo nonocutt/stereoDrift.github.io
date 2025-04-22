@@ -105,7 +105,7 @@ recordButton.addEventListener("click", () => {
         }
     };
 
-    console.log("🎥 Starting MediaRecorder...");
+    console.log(" Starting MediaRecorder...");
     recorder.start();    // Start recording
     audio.play();        // Start audio playback
 

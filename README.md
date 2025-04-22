@@ -17,6 +17,8 @@ Below is the original README from the upstream repo, included for reference and 
 <details>
 <summary>Click to expand original README</summary>
 
+<br>
+
 <b>Stereo Drift</b> is a music visualization tool for artists, amateurs, and all.
 
 Live version: <b>https://stereodrift.github.io/</b>
