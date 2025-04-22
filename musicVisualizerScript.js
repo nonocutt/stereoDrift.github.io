@@ -546,23 +546,36 @@ function useMicrophone(){
 }
 
 function readFile(files) {
-    var fileReader = new FileReader();
-        fileReader.readAsArrayBuffer(files[0]);
-        fileReader.onload = function(e) {
-            
-            audioElement.setAttribute('src', URL.createObjectURL(files[0]));
-            audioElement.load();
+    const file = files[0];
+    if (!file) return;  // Exit if no file is selected
 
-            console.log(("Filename: '" + files[0].name + "'"), ( "(" + ((Math.floor(files[0].size/1024/1024*100))/100) + " MB)" ));
+    const objectURL = URL.createObjectURL(file);  // Create a temporary URL for the uploaded file
+    audioElement.setAttribute('src', objectURL);         // Set audio element source to the uploaded file
+    audioElement.load();                // Load the audio file
 
-            trackChoice = "userUpload";
-            
-            //playAudioFile(e.target.result);
-            clickPlayButton();
-
+    audioElement.onloadedmetadata = () => {
+        // Validate the loaded audio file's metadata
+        if (!isFinite(audioElement.duration) || audioElement.duration === 0) {
+            // If the duration is invalid or zero, assume the file is unsupported or corrupted
+            alert("Unsupported or corrupted audio file.");
+            console.warn(" Invalid duration or unsupported format:", audioElement.error);
+            URL.revokeObjectURL(objectURL);             // Clean up the object URL
+            return;     // Stop further processing
         }
-    setSvgSize();
 
+        trackChoice = "userUpload";     // Set track label
+        setSvgSize();           // Resize the visualization canvas based on current settings
+
+        clickPlayButton();     // Start audio
+        recordButton.click();  // Auto-start recording
+    };
+
+    audioElement.onerror = () => {
+        // If the audio fails to load, show an error and log the issue
+        alert("Failed to load audio. Try using a different format (MP3/OGG/WAV).");
+        console.error("Audio load error:", audioElement.error);
+        URL.revokeObjectURL(objectURL);     // Clean up the object URL
+    };
 }
 
 function clickPlayButton(){
@@ -574,6 +587,7 @@ function clickPlayButton(){
     rewindAudioFileButton.style.border = "2px solid rgb(180, 180, 180)";
 
     useAudioFile();
+    document.getElementById("recordButton").click();        // Automatically click the recording button
 
 }
 
@@ -749,6 +763,7 @@ function runVisualization() {
 
     //change background colour of menu
     navMenuDiv.style.backgroundColor = backgroundColour;
+    svgContainerDiv.style.backgroundColor = backgroundColour;
 
     //convert fill colour HEX into RGB instead
 
