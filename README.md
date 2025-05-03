@@ -7,7 +7,7 @@ This is a personal fork of [**stereoDrift/stereoDrift.github.io**](https://githu
 - Added ability to **record audio + SVG-based visualizations** into a video file (`.webm`)
 - Support for **manual and auto stop** of the recording session
 - Captures **live visual style updates and background colors**
-- Automatically starts recording when user clicks the start button
+- Automatically starts recording when the user clicks the start button
 - Gracefully handles unsupported file formats and prevents empty recording
 
 ## Original README
@@ -50,3 +50,9 @@ License
 =======
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-NonCommercial 3.0 Unported License</a>.  For commercial projects, please contact stereoDriftVisuals@gmail.com
 </details>
+
+## TODO
+
+* Add function to prevent the user clicking the recording button when no music is loaded
+* Change the playback/recording function behavior so that playback/recording can be started manually after loading a song
+* Enhance error checking/handling so that the user doesn't need to refresh the page when error encounters
